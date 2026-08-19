@@ -62,9 +62,7 @@ annuity_factor = calculate_annuity_factor(
     lifetime_years=15,
 )
 
-print(
-    f"Annuity factor = {annuity_factor:.4f}"
-)
+
 
 heatpump_capex = calculate_heatpump_capex(
     capex_per_house=7000,
@@ -72,9 +70,7 @@ heatpump_capex = calculate_heatpump_capex(
     annuity_factor=annuity_factor,
 )
 
-print(
-    f"Annual heat pump CAPEX = €{heatpump_capex:,.0f}"
-)
+
 
 grid_capex = calculate_grid_capex(
     peak_heatpump_electricity_kw=heatpump_electricity.max(),
@@ -83,9 +79,7 @@ grid_capex = calculate_grid_capex(
     annuity_factor=annuity_factor,
 )
 
-print(
-    f"Annual grid CAPEX = €{grid_capex:,.0f}"
-)
+
 
 total_costs = (
     heatpump_capex
@@ -93,16 +87,14 @@ total_costs = (
     + city_opex.sum()
 )
 
-print(
-    f"Total annual costs = €{total_costs:,.0f}")
+
 
 lcoe = (
     total_costs
     / city_electricity.sum()
 )
 
-print(
-    f"LCOE = €{lcoe:.3f}/kWh")
+
 
 heat_opex = calculate_heat_opex(
     total_opex=city_opex,
@@ -119,6 +111,16 @@ lcoe_heat = calculate_lcoe_heat(
     hourly_heat_demand=hourly_heat,
 )
 
-print(
-    f"LCoE heat = €{lcoe_heat:.3f}/kWh_heat"
-)
+print("========== SCENARIO 1 ==========")
+
+print(f"Peak total electricity: {total_electricity.max():.2f} kW")
+print(f"Peak city electricity: {city_electricity.max():.0f} kW")
+
+print(f"Annual CO2: {city_co2.sum()/1000:.0f} ton")
+
+print(f"Annual CAPEX: €{heatpump_capex:,.0f}")
+print(f"Annual Grid CAPEX: €{grid_capex:,.0f}")
+print(f"Annual OPEX: €{city_opex.sum():,.0f}")
+
+print(f"LCoE electricity: €{lcoe:.3f}/kWh_electricity")
+print(f"LCoE heat: €{lcoe_heat:.3f}/kWh_heat")
