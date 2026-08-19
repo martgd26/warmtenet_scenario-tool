@@ -1,6 +1,6 @@
 import pandas as pd
 
-from calculations.scenario_1 import (calculate_hourly_heat_demand,calculate_heatpump_electricity,calculate_total_electricity_demand,calculate_household_electricity,calculate_city_electricity_demand,calculate_city_co2_emissions,calculate_city_opex,)
+from calculations.scenario_1 import (calculate_hourly_heat_demand,calculate_heatpump_electricity,calculate_total_electricity_demand,calculate_household_electricity,calculate_city_electricity_demand,calculate_city_co2_emissions,calculate_city_opex,calculate_annuity_factor,calculate_heatpump_capex, calculate_grid_capex,calculate_heat_opex,calculate_scop,calculate_lcoe_heat)
 
 #Electriciteitsvraag
 electricity_df = pd.read_csv("data/electricity_profile.csv",sep="\t")
@@ -50,18 +50,75 @@ price_profile = (
     .astype(float)
 )
 
-print(price_profile.head())
-print(price_profile.dtype)
-
 
 city_opex = calculate_city_opex(
     city_electricity_demand=city_electricity,
     electricity_price_profile=price_profile,
 )
 
-print(price_profile)
+
+annuity_factor = calculate_annuity_factor(
+    interest=0.03,
+    lifetime_years=15,
+)
 
 print(
-    f"Annual OPEX = "
-    f"€{city_opex.sum():,.0f}"
+    f"Annuity factor = {annuity_factor:.4f}"
+)
+
+heatpump_capex = calculate_heatpump_capex(
+    capex_per_house=7000,
+    houses=82000,
+    annuity_factor=annuity_factor,
+)
+
+print(
+    f"Annual heat pump CAPEX = €{heatpump_capex:,.0f}"
+)
+
+grid_capex = calculate_grid_capex(
+    peak_heatpump_electricity_kw=heatpump_electricity.max(),
+    houses=82000,
+    grid_expansion_cost_eur_per_kw=1000,
+    annuity_factor=annuity_factor,
+)
+
+print(
+    f"Annual grid CAPEX = €{grid_capex:,.0f}"
+)
+
+total_costs = (
+    heatpump_capex
+    + grid_capex
+    + city_opex.sum()
+)
+
+print(
+    f"Total annual costs = €{total_costs:,.0f}")
+
+lcoe = (
+    total_costs
+    / city_electricity.sum()
+)
+
+print(
+    f"LCOE = €{lcoe:.3f}/kWh")
+
+heat_opex = calculate_heat_opex(
+    total_opex=city_opex,
+    heatpump_electricity=heatpump_electricity,
+    total_electricity=total_electricity,
+)
+
+lcoe_heat = calculate_lcoe_heat(
+    city_capex=heatpump_capex,
+    grid_capex=grid_capex,
+    heat_opex=heat_opex.sum(),
+    houses=82000,
+    heatpump_electricity=heatpump_electricity,
+    hourly_heat_demand=hourly_heat,
+)
+
+print(
+    f"LCoE heat = €{lcoe_heat:.3f}/kWh_heat"
 )

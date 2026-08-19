@@ -45,3 +45,82 @@ def calculate_city_opex(
     electricity_price_profile: pd.Series,
 ) -> pd.Series:
     return city_electricity_demand * electricity_price_profile
+
+def calculate_annuity_factor(
+    interest: float,
+    lifetime_years: int,
+) -> float:
+    return (
+        interest
+        /
+        (
+            1
+            - (1 / (1 + interest) ** lifetime_years)
+        )
+    )
+
+def calculate_heatpump_capex(
+    capex_per_house: float,
+    houses: int,
+    annuity_factor: float,
+) -> float:
+    return (
+        capex_per_house
+        * houses
+        * annuity_factor
+    )
+
+def calculate_grid_capex(
+    peak_heatpump_electricity_kw: float,
+    houses: int,
+    grid_expansion_cost_eur_per_kw: float,
+    annuity_factor: float,
+) -> float:
+    return (
+        peak_heatpump_electricity_kw
+        * houses
+        * grid_expansion_cost_eur_per_kw
+        * annuity_factor
+    )
+
+def calculate_heat_opex(
+    total_opex: pd.Series,
+    heatpump_electricity: pd.Series,
+    total_electricity: pd.Series,
+) -> pd.Series:
+    return (
+        total_opex
+        * (
+            heatpump_electricity
+            / total_electricity
+        )
+    )
+
+def calculate_scop(
+    hourly_heat_demand: pd.Series,
+    heatpump_electricity: pd.Series,
+) -> float:
+    return (
+        hourly_heat_demand.sum()
+        / heatpump_electricity.sum()
+    )
+
+def calculate_lcoe_heat(
+    city_capex: float,
+    grid_capex: float,
+    heat_opex: float,
+    houses: int,
+    heatpump_electricity: pd.Series,
+    hourly_heat_demand: pd.Series,
+) -> float:
+
+    annual_heat_delivered = (
+        houses
+        * hourly_heat_demand.sum()
+    )
+
+    return (
+        city_capex
+        + grid_capex
+        + heat_opex
+    ) / annual_heat_delivered
