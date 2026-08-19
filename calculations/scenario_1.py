@@ -39,3 +39,9 @@ def calculate_city_co2_emissions(
     co2_profile: pd.Series,
 ) -> pd.Series:
     return city_electricity_demand * co2_profile
+
+def calculate_city_opex(
+    city_electricity_demand: pd.Series,
+    electricity_price_profile: pd.Series,
+) -> pd.Series:
+    return city_electricity_demand * electricity_price_profile

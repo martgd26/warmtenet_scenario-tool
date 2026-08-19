@@ -1,6 +1,6 @@
 import pandas as pd
 
-from calculations.scenario_1 import (calculate_hourly_heat_demand,calculate_heatpump_electricity,calculate_total_electricity_demand,calculate_household_electricity,calculate_city_electricity_demand,calculate_city_co2_emissions,)
+from calculations.scenario_1 import (calculate_hourly_heat_demand,calculate_heatpump_electricity,calculate_total_electricity_demand,calculate_household_electricity,calculate_city_electricity_demand,calculate_city_co2_emissions,calculate_city_opex,)
 
 #Electriciteitsvraag
 electricity_df = pd.read_csv("data/electricity_profile.csv",sep="\t")
@@ -27,8 +27,7 @@ city_electricity = calculate_city_electricity_demand(
     houses=82000,
 )
 
-co2_df = pd.read_csv(
-    "data/co2_profiles.csv",
+co2_df = pd.read_csv("data/co2_profiles.csv",
     sep="\t"
 )
 
@@ -39,7 +38,30 @@ city_co2 = calculate_city_co2_emissions(
     co2_profile=co2_profile,
 )
 
+price_df = pd.read_csv(
+    "data/electricity_prices.csv",
+    sep="\t"
+)
+price_profile = (
+    price_df["2025"]
+    .str.replace("€", "", regex=False)
+    .str.strip()
+    .replace("-", "0")
+    .astype(float)
+)
+
+print(price_profile.head())
+print(price_profile.dtype)
+
+
+city_opex = calculate_city_opex(
+    city_electricity_demand=city_electricity,
+    electricity_price_profile=price_profile,
+)
+
+print(price_profile)
+
 print(
-    f"Annual city CO2 = "
-    f"{city_co2.sum()/1000:.0f} ton/year"
+    f"Annual OPEX = "
+    f"€{city_opex.sum():,.0f}"
 )
