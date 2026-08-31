@@ -1,47 +1,37 @@
 import pandas as pd
+import numpy as np
+from calculations.common import *
+from calculations.load_profiles import load_profiles
 
-from calculations.scenario_1 import *
+def calculate_heatpump_electricity(hourly_heat_demand: pd.Series,hourly_cop: pd.Series,) -> pd.Series:
+    return hourly_heat_demand / hourly_cop
 
-def calculate_daily_average_heat_demand(hourly_heat_demand: pd.Series,) -> pd.Series:
-    daily_average = (hourly_heat_demand.groupby(hourly_heat_demand.index // 24).transform("mean"))
-    return daily_average
+def calculate_scop(hourly_heat_demand: pd.Series,heatpump_electricity: pd.Series,) -> float:
+    return (hourly_heat_demand.sum() / heatpump_electricity.sum())
+
+def calculate_daily_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,) -> pd.Series:
+    excel_serial = ((datetime_series - pd.Timestamp("1899-12-30")).dt.total_seconds() / 86400)
+    daily_groups = np.floor(excel_serial - 1/24 + 1e-9)
+    daily_groups[daily_groups == daily_groups.min()] += 1
+    return (hourly_heat_demand.groupby(daily_groups).transform("mean"))
 
 def calculate_buffer_volume(heatpump_electricity: pd.Series,daily_average_heat_demand: pd.Series,scop: float,delta_t: float = 20,):
     buffer_content = (daily_average_heat_demand - heatpump_electricity).cumsum()
     required_storage_energy = (buffer_content.max() - buffer_content.min())
     required_storage_energy *= scop
-    volume = (required_storage_energy * 3600000 / 4180 / delta_t)
+    volume = (required_storage_energy * 3600000 / 4180 / delta_t) / 1000
     return volume
 
-def run_scenario_2(
-    houses: int,
-    annual_electricity_demand_kwh: float,
-    annual_heat_demand_gj: float,
-    analysis_year: str,
-    capex_per_house: float,
-    heatpump_lifetime_years: int,
-    wacc: float,
-    grid_expansion_cost_eur_per_kw: float,
-    delta_t_buffer: float,
-    ):
+def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
+                   analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
+                   wacc: float,grid_expansion_cost_eur_per_kw: float,delta_t_buffer: float,):
 
-    # Electricity profile
-    electricity_df = pd.read_csv("data/electricity_profile.csv",sep="\t")
-    electricity_profile = (electricity_df["Electriciteitsprofiel from ned.nl (standaard dag profiel)"]
-                           /electricity_df["Electriciteitsprofiel from ned.nl (standaard dag profiel)"].sum())
-
-    # Heat profile
-    heat_df = pd.read_csv("data/heat_profile.csv",sep="\t")
+    # Loading profiles
+    (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
     heat_profile = (heat_df["MW"] / heat_df["MW"].sum())
+    heat_df["datum"] = pd.to_datetime(heat_df["datum"],dayfirst=True,)
+
     cop = (0.45 * ((273 + 50) / (50 - heat_df["°C"])))
-
-    # CO₂ emission
-    co2_df = pd.read_csv("data/co2_profiles.csv",sep="\t")
-    co2_profile = co2_df[analysis_year]
-
-     # Electricity prices
-    price_df = pd.read_csv("data/electricity_prices.csv",sep="\t")
-    price_profile = (price_df[analysis_year].str.replace("€", "", regex=False).str.strip().replace("-", "0").astype(float))
 
     # Calculations
     household_electricity = calculate_household_electricity(annual_electricity_demand_kwh=annual_electricity_demand_kwh,
@@ -51,7 +41,7 @@ def run_scenario_2(
 
     heatpump_electricity = calculate_heatpump_electricity(hourly_heat_demand=hourly_heat,hourly_cop=cop,)
 
-    daily_average_heat = calculate_daily_average_heat_demand(hourly_heat_demand=heatpump_electricity)
+    daily_average_heat = calculate_daily_average_heat_demand(hourly_heat_demand=heatpump_electricity,datetime_series=heat_df["datum"],)
 
     total_electricity = calculate_total_electricity_demand(household_electricity=household_electricity,
                                                            heatpump_electricity=daily_average_heat,)

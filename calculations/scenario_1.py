@@ -1,76 +1,23 @@
 import pandas as pd
-
-def calculate_household_electricity(annual_electricity_demand_kwh: float,electricity_profile: pd.Series,) -> pd.Series:
-    return annual_electricity_demand_kwh * electricity_profile
-
-def calculate_hourly_heat_demand(annual_heat_demand_gj: float,heat_profile: pd.Series,) -> pd.Series:
-    annual_heat_demand_kwh = annual_heat_demand_gj / 0.0036
-    return annual_heat_demand_kwh * heat_profile
+import numpy as np
+from calculations.load_profiles import load_profiles
+from calculations.common import *
 
 def calculate_heatpump_electricity(hourly_heat_demand: pd.Series,hourly_cop: pd.Series,) -> pd.Series:
     return hourly_heat_demand / hourly_cop
 
-def calculate_total_electricity_demand(household_electricity: pd.Series,heatpump_electricity: pd.Series,) -> pd.Series:
-    return household_electricity + heatpump_electricity
-
-def calculate_city_electricity_demand(total_electricity_demand: pd.Series,houses: int,) -> pd.Series:
-    return total_electricity_demand * houses
-
-def calculate_city_co2_emissions(city_electricity_demand: pd.Series,co2_profile: pd.Series,) -> pd.Series:
-    return city_electricity_demand * co2_profile
-
-def calculate_city_opex(city_electricity_demand: pd.Series,electricity_price_profile: pd.Series,) -> pd.Series:
-    return city_electricity_demand * electricity_price_profile
-
-def calculate_annuity_factor(interest: float,lifetime_years: int,) -> float:
-    return (interest / (1 - (1 / (1 + interest) ** lifetime_years)))
-
-def calculate_heatpump_capex(capex_per_house: float,houses: int,annuity_factor: float,) -> float:
-    return (capex_per_house * houses * annuity_factor)
-
-def calculate_grid_capex(peak_heatpump_electricity_kw: float,houses: int,grid_expansion_cost_eur_per_kw: float,
-                         annuity_factor: float,) -> float:
-    return (peak_heatpump_electricity_kw * houses * grid_expansion_cost_eur_per_kw * annuity_factor)
-
-def calculate_heat_opex(total_opex: pd.Series,heatpump_electricity: pd.Series,total_electricity: pd.Series,) -> pd.Series:
-    return (total_opex * (heatpump_electricity / total_electricity))
-
 def calculate_scop(hourly_heat_demand: pd.Series,heatpump_electricity: pd.Series,) -> float:
     return (hourly_heat_demand.sum() / heatpump_electricity.sum())
 
-def calculate_lcoe_heat(city_capex: float,grid_capex: float,heat_opex: float, houses: int,
-                        heatpump_electricity: pd.Series,hourly_heat_demand: pd.Series,) -> float:
-    annual_heat_delivered = (houses * hourly_heat_demand.sum())
-    return (city_capex + grid_capex + heat_opex) / annual_heat_delivered
+def run_scenario_1(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
+                   analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
+                   wacc: float,grid_expansion_cost_eur_per_kw: float,):
 
-def run_scenario_1(
-    houses: int,
-    annual_electricity_demand_kwh: float,
-    annual_heat_demand_gj: float,
-    analysis_year: str,
-    capex_per_house: float,
-    heatpump_lifetime_years: int,
-    wacc: float,
-    grid_expansion_cost_eur_per_kw: float,
-    ):
-
-    # Electricity profile
-    electricity_df = pd.read_csv("data/electricity_profile.csv",sep="\t")
-    electricity_profile = (electricity_df["Electriciteitsprofiel from ned.nl (standaard dag profiel)"]
-                           /electricity_df["Electriciteitsprofiel from ned.nl (standaard dag profiel)"].sum())
-
-    # Heat profile
-    heat_df = pd.read_csv("data/heat_profile.csv",sep="\t")
+    # Loading profiles
+    (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
     heat_profile = (heat_df["MW"] / heat_df["MW"].sum())
+
     cop = (0.45 * ((273 + 50) / (50 - heat_df["°C"])))
-
-    # CO₂ emission
-    co2_df = pd.read_csv("data/co2_profiles.csv",sep="\t")
-    co2_profile = co2_df[analysis_year]
-
-     # Electricity prices
-    price_df = pd.read_csv("data/electricity_prices.csv",sep="\t")
-    price_profile = (price_df[analysis_year].str.replace("€", "", regex=False).str.strip().replace("-", "0").astype(float))
 
     # Calculations
     household_electricity = calculate_household_electricity(annual_electricity_demand_kwh=annual_electricity_demand_kwh,
