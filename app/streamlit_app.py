@@ -26,9 +26,7 @@ inzichtelijk worden gemaakt wat de meerwaarde is van een warmtebuffer.
 
 De resultaten worden vergeleken op basis van elektriciteitsvraag, piekvermogen,
 CO₂-uitstoot en kosten. De gebruikte data en aannames die worden gebruikt in het
-rekenmodel zijn beschreven in het rapport:
-
-*Warmtenetten als onderdeel van het energiesysteem - Een vergelijk tussen
+rekenmodel zijn beschreven in het rapport: *Warmtenetten als onderdeel van het energiesysteem - Een vergelijk tussen
 individuele en collectieve systemen met en zonder warmtebuffers, Deltares
 referentie: 11208818-029-USP-0001, datum 10-09-2026.*
 
