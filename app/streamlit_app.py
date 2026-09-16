@@ -14,16 +14,29 @@ st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
 
 st.title("Warmtenetten als onderdeel van het energiesysteem")
 
-st.subheader(
-    "Scenarioverkenner voor de rol van warmtenetten in een toekomstig energiesysteem"
-)
+st.subheader("rekenmodel om vergelijk te maken tussen individuele en collectieve systemen met en zonder warmte buffers ")
 
 st.markdown(
     """
-    Met deze tool kunnen verschillende warmtevoorzieningsscenario's worden
-    doorgerekend en vergeleken. De tool laat zien hoe keuzes voor individuele
-    warmtepompen, collectieve warmtesystemen en warmtebuffers doorwerken in
-    elektriciteitsvraag, netbelasting, CO₂-uitstoot en kosten.
+    Introductie 
+
+Dit rekenmodel is ontwikkeld als onderdeel van het programma Nieuwe Warmte Nu. Met dit rekenmodel kan een vergelijking worden gemaakt tussen individuele warmtesystemen en collectieve warmtesystemen voor een gehele stad. Daarnaast kan inzichtelijk worden gemaakt wat de meerwaarde is van een warmtebuffer. 
+
+ 
+
+De resultaten worden vergeleken op basis van elektriciteitsvraag, piekvermogen, CO2 uitstoot en kosten. De gebruikte data en aannames die worden gebruikt in het rekenmodel zijn beschreven in het rapport: “Warmtenetten als onderdeel van het energiesysteem - Een vergelijk tussen individuele en collectieve systemen met en zonder warmte buffers, Deltares referentie: 11208818-029-USP-0001, datum 10-09-2026”  
+
+ 
+
+Disclaimer:  
+
+Het staat een ieder vrij de resultaten berekend met dit model te gebruiken voor het eigen intern, niet-commercieel gebruik, maar is niet geschikt om (ontwerp)beslissingen op te baseren. Deltares heeft dit rekenmodel opgezet om snel inzicht te kunnen geven over verschillen tussen individuele en collectieve systemen en in de kansen van buffering in een warmtesystemen. Dit rekenmodel wordt daarom ook aangeboden zonder garantie van welke aard dan ook. Het gebruik ervan is voor eigen rekening en risico. Deltares / Nieuwe Warmte Nu is in geen geval aansprakelijk voor schades ontstaan door gebruik van dit rekenmodel. Als de uitkomsten van het rekenmodel aanleiding geven voor verder onderzoek, dan raden we aan om de verdere dimensionering uit te voeren met behulp van een adviesbureau.  
+
+ 
+
+Anton de Fockert, Ronald Roosjen  
+
+Deltares, 10 september 2026 
     """
 )
 
