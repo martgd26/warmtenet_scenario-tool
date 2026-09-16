@@ -17,7 +17,7 @@ st.title("Warmtenetten als onderdeel van het energiesysteem")
 st.subheader("rekenmodel om vergelijk te maken tussen individuele en collectieve systemen met en zonder warmte buffers ")
 
 st.markdown("""
-### Introductie
+#### Introductie
 
 Dit rekenmodel is ontwikkeld als onderdeel van het programma Nieuwe Warmte Nu.
 Met dit rekenmodel kan een vergelijking worden gemaakt tussen individuele
@@ -32,7 +32,7 @@ rekenmodel zijn beschreven in het rapport:
 individuele en collectieve systemen met en zonder warmtebuffers, Deltares
 referentie: 11208818-029-USP-0001, datum 10-09-2026.*
 
-### Disclaimer
+#### Disclaimer
 
 Het staat een ieder vrij de resultaten berekend met dit model te gebruiken voor
 eigen intern, niet-commercieel gebruik, maar het model is niet geschikt om
