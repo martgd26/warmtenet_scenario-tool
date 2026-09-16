@@ -12,7 +12,20 @@ from calculations.scenario_5 import run_scenario_5
 
 st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
 
-st.title("Warmtenet Tool")
+st.title("Warmtenetten als onderdeel van het energiesysteem")
+
+st.subheader(
+    "Scenarioverkenner voor de rol van warmtenetten in een toekomstig energiesysteem"
+)
+
+st.markdown(
+    """
+    Met deze tool kunnen verschillende warmtevoorzieningsscenario's worden
+    doorgerekend en vergeleken. De tool laat zien hoe keuzes voor individuele
+    warmtepompen, collectieve warmtesystemen en warmtebuffers doorwerken in
+    elektriciteitsvraag, netbelasting, CO₂-uitstoot en kosten.
+    """
+)
 
 with st.sidebar:
     mode = st.radio("Methode",["Los scenario","Vergelijk scenario's",])
