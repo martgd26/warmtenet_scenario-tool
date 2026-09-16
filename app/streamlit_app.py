@@ -151,7 +151,7 @@ with st.sidebar:
     st.divider()
 
     st.header("Algemene instellingen")
-    analysis_year = st.selectbox("Analysejaar",["2018","2019","2020","2021","2022","2023","2024","2025",],index=7,)
+    analysis_year = st.selectbox("Analysejaar",["2018","2019","2020","2021","2022","2023","2024","2025","2030","2035","2040","2050"],index=7,)
     houses = st.number_input("Aantal huizen", value=82000,)
     electricity_demand = st.number_input("Elektriciteitsvraag per huis (kWh/jaar)",value=2500,)
     heat_demand = st.number_input("Warmtevraag per huis (GJ/jaar)",value=31,)
