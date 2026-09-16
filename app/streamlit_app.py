@@ -17,7 +17,7 @@ st.title("Warmtenetten als onderdeel van het energiesysteem")
 st.subheader("rekenmodel om vergelijk te maken tussen individuele en collectieve systemen met en zonder warmte buffers ")
 
 st.markdown("""
-## Introductie
+### Introductie
 
 Dit rekenmodel is ontwikkeld als onderdeel van het programma Nieuwe Warmte Nu.
 Met dit rekenmodel kan een vergelijking worden gemaakt tussen individuele
