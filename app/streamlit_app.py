@@ -15,35 +15,35 @@ st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
 st.title("Warmtenet Tool")
 
 with st.sidebar:
-    mode = st.radio("Mode",["Single Scenario","Compare Scenarios",])
+    mode = st.radio("Mode",["Los scenario","Vergelijk scenario's",])
 
-    if mode == "Single Scenario":
-        scenario = st.selectbox("Scenario",["Individual Heat Pump","Individual Heat Pump + Day Buffer","Collective Heat System","Collective Heat System + Seasonal Buffer","Collective Heat System + Two-Week Buffer"],index=0,)
+    if mode == "Los scenario":
+        scenario = st.selectbox("Scenario",["Individuele warmtepomp","Individuele warmtepomp + dagbuffer","Collectief warmtesysteem","Collectief warmtesysteem + seizoenbuffer","Collectief warmtesysteem + twee weken buffer"],index=0,)
 
-        if scenario == "Individual Heat Pump":
+        if scenario == "Individuele warmtepomp":
             with st.expander("Scenario-specific settings"):
                 capex_per_house_1 = st.number_input("CAPEX (€ per house)",value=7000.0,)
                 heatpump_lifetime_years_1 = st.number_input("Heat pump lifetime (years)",value=15,key="single_s1_lifetime",)
 
-        elif scenario == "Individual Heat Pump + Day Buffer":
+        elif scenario == "Individuele warmtepomp + dagbuffer":
             with st.expander("Scenario-specific settings"):
                 capex_per_house_2 = st.number_input("CAPEX (€ per house)",value=8500.0,)
                 heatpump_lifetime_years_2 = st.number_input("Heat pump lifetime (years)",value=15,key="single_s2_lifetime",)
                 delta_t_buffer = st.number_input("Buffer ΔT (°C)", value=20.0,)
 
-        elif scenario == "Collective Heat System":
+        elif scenario == "Collectief warmtesysteem":
             with st.expander("Scenario-specific settings"):
                 capex_per_house_3 = st.number_input("CAPEX (€ per house)",value=15000.0,key="single_s3_capex",)
                 heatpump_lifetime_years_3 = st.number_input("Heat system lifetime (years)",value=30,key="single_s3_lifetime",)
 
-        elif scenario == "Collective Heat System + Seasonal Buffer":
+        elif scenario == "Collectief warmtesysteem + seizoenbuffer":
             with st.expander("Scenario-specific settings"):
                 capex_per_house_4 = st.number_input("CAPEX (€ per house)",value=15000.0,key="single_s4_capex",)
                 heatpump_lifetime_years_4 = st.number_input("Heat system lifetime (years)",value=30,key="single_s4_lifetime",)
                 delta_t_buffer_seasonal = st.number_input("Seasonal Buffer ΔT (°C)", value=50.0,)
                 buffer_cost_per_m3_4 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="single_s4_buffer_cost")
 
-        elif scenario == "Collective Heat System + Two-Week Buffer":
+        elif scenario == "Collectief warmtesysteem + twee weken buffer":
             with st.expander("Scenario-specific settings"):
                 capex_per_house_5 = st.number_input("CAPEX (€ per house)",value=15000.0,key="single_s5_capex",)
                 heatpump_lifetime_years_5 = st.number_input("Heat system lifetime (years)",value=30,key="single_s5_lifetime",)
@@ -51,51 +51,51 @@ with st.sidebar:
                 buffer_cost_per_m3_5 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="single_s5_buffer_cost")
 
 
-    if mode == "Compare Scenarios":
+    if mode == "Vergelijk scenario's":
         st.subheader("Scenarios")
 
         selected_scenarios = []
 
-        if st.checkbox("Individual Heat Pump",value=False,):
-            selected_scenarios.append("Individual Heat Pump")
+        if st.checkbox("Individuele warmtepomp",value=False,):
+            selected_scenarios.append("Individuele warmtepomp")
 
-        if st.checkbox("Individual Heat Pump + Day Buffer",value=False,):
-            selected_scenarios.append("Individual Heat Pump + Day Buffer")
+        if st.checkbox("Individuele warmtepomp + dagbuffer",value=False,):
+            selected_scenarios.append("Individuele warmtepomp + dagbuffer")
 
-        if st.checkbox("Collective Heat System",value=False,):
-            selected_scenarios.append("Collective Heat System")
+        if st.checkbox("Collectief warmtesysteem",value=False,):
+            selected_scenarios.append("Collectief warmtesysteem")
 
-        if st.checkbox("Collective Heat System + Seasonal Buffer",value=False,):
-            selected_scenarios.append("Collective Heat System + Seasonal Buffer")
+        if st.checkbox("Collectief warmtesysteem + seizoenbuffer",value=False,):
+            selected_scenarios.append("Collectief warmtesysteem + seizoenbuffer")
 
-        if st.checkbox("Collective Heat System + Two-Week Buffer",value=False,):
-            selected_scenarios.append("Collective Heat System + Two-Week Buffer")
+        if st.checkbox("Collectief warmtesysteem + twee weken buffer",value=False,):
+            selected_scenarios.append("Collectief warmtesysteem + twee weken buffer")
 
-        if "Individual Heat Pump" in selected_scenarios:
-            with st.sidebar.expander("Settings 'Individual Heat Pump'"):
+        if "Individuele warmtepomp" in selected_scenarios:
+            with st.sidebar.expander("Settings 'Individuele warmtepomp'"):
                 capex_per_house_1 = st.number_input("CAPEX (€ per house)",value=7000.0,)
                 heatpump_lifetime_years_1 = st.number_input("Heat pump lifetime (years)",value=15,key="compare_s1_lifetime",)
         
-        if "Individual Heat Pump + Day Buffer" in selected_scenarios:
-            with st.sidebar.expander("Settings 'Individual Heat Pump + Day Buffer'"):
+        if "Individuele warmtepomp + dagbuffer" in selected_scenarios:
+            with st.sidebar.expander("Settings 'Individuele warmtepomp + dagbuffer'"):
                 capex_per_house_2 = st.number_input("CAPEX (€ per house)",value=8500.0,)
                 heatpump_lifetime_years_2 = st.number_input("Heat pump lifetime (years)",value=15,key="compare_s2_lifetime",)
                 delta_t_buffer = st.number_input("Buffer ΔT (°C)",value=20.0,)
 
-        if "Collective Heat System" in selected_scenarios:
-                    with st.sidebar.expander("Settings 'Collective Heat System'"):
+        if "Collectief warmtesysteem" in selected_scenarios:
+                    with st.sidebar.expander("Settings 'Collectief warmtesysteem'"):
                         capex_per_house_3 = st.number_input("CAPEX (€ per house)",value=15000.0,key="compare_s3_capex",)
                         heatpump_lifetime_years_3 = st.number_input("Heat system lifetime (years)",value=30,key="compare_s3_lifetime",)
 
-        if "Collective Heat System + Seasonal Buffer" in selected_scenarios:
-                    with st.sidebar.expander("Settings 'Collective Heat System + Seasonal Buffer'"):
+        if "Collectief warmtesysteem + seizoenbuffer" in selected_scenarios:
+                    with st.sidebar.expander("Settings 'Collectief warmtesysteem + seizoenbuffer'"):
                         capex_per_house_4 = st.number_input("CAPEX (€ per house)",value=15000.0,key="compare_s4_capex",)
                         heatpump_lifetime_years_4 = st.number_input("Heat system lifetime (years)",value=30,key="compare_s4_lifetime",)
                         delta_t_buffer_seasonal = st.number_input("Seasonal Buffer ΔT (°C)",value=50.0,)
                         buffer_cost_per_m3_4 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="compare_s4_buffer_cost")
 
-        if "Collective Heat System + Two-Week Buffer" in selected_scenarios:
-                    with st.sidebar.expander("Settings 'Collective Heat System + Two-Week Buffer'"):
+        if "Collectief warmtesysteem + twee weken buffer" in selected_scenarios:
+                    with st.sidebar.expander("Settings 'Collectief warmtesysteem + twee weken buffer'"):
                         capex_per_house_5 = st.number_input("CAPEX (€ per house)",value=15000.0,key="compare_s5_capex",)
                         heatpump_lifetime_years_5 = st.number_input("Heat system lifetime (years)",value=30,key="compare_s5_lifetime",)
                         delta_t_buffer_two_week = st.number_input("Two-Week Buffer ΔT (°C)",value=50.0,)
