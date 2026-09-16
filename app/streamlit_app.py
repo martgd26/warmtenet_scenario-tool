@@ -269,8 +269,6 @@ if mode == "Los scenario":
             
             st.header("Resultaten")
 
-            st.write(results.keys())
-
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
                                                   "Jaarlijkse OPEX","Totale jaarlijkse kosten",
@@ -306,7 +304,7 @@ if mode == "Los scenario":
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
                                                   "Jaarlijkse OPEX","Totale jaarlijkse kosten",
-                                                  "LCoE Warmte","Buffervolume"],
+                                                  "LCoE Warmte","Bufferenergie","Buffervolume"],
                                         "Waarde": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
@@ -315,6 +313,7 @@ if mode == "Los scenario":
                                                   f"€{results['annual_city_opex']:,.0f}",
                                                   f"€{results['annual_total_costs']:,.0f}",
                                                   f"€{results['lcoe_heat']:.3f}/kWh",
+                                                  f"{results['buffer_energy']/1_000_000:,.1f} GWh",
                                                   f"{results['buffer_volume']:,.0f} m³ (20 x {(results['buffer_volume']/20)**0.5:,.0f} × {(results['buffer_volume']/20)**0.5:,.0f} m)",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
