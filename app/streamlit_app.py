@@ -394,7 +394,7 @@ if mode == "Vergelijk scenario's":
             "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
             "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
             "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
-            "Bufferenergie (kWh)": (f"{scenario_results['buffer_energy']:,.1f}"
+            "Bufferenergie (kWh)": (f"{scenario_results['buffer_energy']:,.0f}"
                                     if "buffer_energy" in scenario_results 
                                     else "N/A"),
             "Buffervolume (m³)": (f"{scenario_results['buffer_volume']:,.0f} m³ "
