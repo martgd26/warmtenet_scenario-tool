@@ -252,7 +252,7 @@ if mode == "Los scenario":
                                                   f"€{results['lcoe_heat']:.3f}/kWh",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Collectief warmtesysteem + Seizoensbuffer":
+        elif scenario == "Collectief warmtesysteem + seizoensbuffer":
             results = run_scenario_4(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
@@ -283,7 +283,7 @@ if mode == "Los scenario":
                                                   f"{results['buffer_volume']:,.0f} m³",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Collectief warmtesysteem + Tweeweekse buffer":
+        elif scenario == "Collectief warmtesysteem + tweeweekse buffer":
             results = run_scenario_5(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
