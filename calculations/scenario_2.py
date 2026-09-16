@@ -43,7 +43,7 @@ def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_
 
     daily_average_heat = calculate_daily_average_heat_demand(hourly_heat_demand=heatpump_electricity,datetime_series=heat_df["datum"],)
 
-    buffer_volume, buffer_energy = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,
+    buffer_volume = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,
                                                            daily_average_heat_demand=daily_average_heat,
                                                            scop=calculate_scop(hourly_heat_demand=hourly_heat,hourly_cop=cop),
                                                            delta_t=delta_t_buffer)
