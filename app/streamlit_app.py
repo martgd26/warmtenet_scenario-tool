@@ -128,7 +128,7 @@ with st.sidebar:
 if mode == "Los scenario":
 
     if calculate:
-        if scenario == "Individual Heat Pump":
+        if scenario == "Individuele warmtepomp":
 
             results = run_scenario_1(
             houses=houses,
@@ -156,7 +156,7 @@ if mode == "Los scenario":
                                                   f"€{results['lcoe_heat']:.3f}/kWh",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Individual Heat Pump + Day Buffer":
+        elif scenario == "Individuele warmtepomp + Dagbuffer":
             results = run_scenario_2(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
@@ -185,7 +185,7 @@ if mode == "Los scenario":
                                                   f"{results['buffer_volume']*1000:,.0f} L",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Collective Heat System":
+        elif scenario == "Collectief warmtesysteem":
             results = run_scenario_3(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
@@ -212,7 +212,7 @@ if mode == "Los scenario":
                                                   f"€{results['lcoe_heat']:.3f}/kWh",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Collective Heat System + Seasonal Buffer":
+        elif scenario == "Collectief warmtesysteem + Seizoensbuffer":
             results = run_scenario_4(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
@@ -243,7 +243,7 @@ if mode == "Los scenario":
                                                   f"{results['buffer_volume']:,.0f} m³",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Collective Heat System + Two-Week Buffer":
+        elif scenario == "Collectief warmtesysteem + Tweeweekse buffer":
             results = run_scenario_5(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
@@ -274,14 +274,14 @@ if mode == "Los scenario":
                                                   f"{results['buffer_volume']:,.0f} m³",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-if mode == "Compare Scenarios":
+if mode == "Vergelijk scenario's":
 
     if calculate_comparison:
 
         results = {}
 
-        if "Individual Heat Pump" in selected_scenarios:
-            results["Individual Heat Pump"] = run_scenario_1(
+        if "Individuele warmtepomp" in selected_scenarios:
+            results["Individuele warmtepomp"] = run_scenario_1(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -292,8 +292,8 @@ if mode == "Compare Scenarios":
                 grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
                 )
 
-        if "Individual Heat Pump + Day Buffer" in selected_scenarios:
-            results["Individual Heat Pump + Day Buffer"] = run_scenario_2(
+        if "Individuele warmtepomp + Dagbuffer" in selected_scenarios:
+            results["Individuele warmtepomp + Dagbuffer"] = run_scenario_2(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -305,8 +305,8 @@ if mode == "Compare Scenarios":
                 delta_t_buffer=delta_t_buffer,
                 )
 
-        if "Collective Heat System" in selected_scenarios:
-            results["Collective Heat System"] = run_scenario_3(
+        if "Collectief warmtesysteem" in selected_scenarios:
+            results["Collectief warmtesysteem"] = run_scenario_3(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -317,8 +317,8 @@ if mode == "Compare Scenarios":
                 grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
                 )
 
-        if "Collective Heat System + Seasonal Buffer" in selected_scenarios:
-            results["Collective Heat System + Seasonal Buffer"] = run_scenario_4(
+        if "Collectief warmtesysteem + Seizoensbuffer" in selected_scenarios:
+            results["Collectief warmtesysteem + Seizoensbuffer"] = run_scenario_4(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -331,8 +331,8 @@ if mode == "Compare Scenarios":
                 buffer_cost_per_m3=buffer_cost_per_m3_4
                 )
 
-        if "Collective Heat System + Two-Week Buffer" in selected_scenarios:
-            results["Collective Heat System + Two-Week Buffer"] = run_scenario_5(
+        if "Collectief warmtesysteem + Tweeweekse buffer" in selected_scenarios:
+            results["Collectief warmtesysteem + Tweeweekse buffer"] = run_scenario_5(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
