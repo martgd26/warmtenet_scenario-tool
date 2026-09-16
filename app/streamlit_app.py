@@ -51,6 +51,8 @@ laten voeren door een gespecialiseerd adviesbureau.
 *Deltares, 10 september 2026*
 """)
 
+st.divider()
+
 
 with st.sidebar:
     mode = st.radio("Methode",["Los scenario","Vergelijk scenario's",])
