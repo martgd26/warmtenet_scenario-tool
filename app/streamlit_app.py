@@ -223,6 +223,7 @@ if mode == "Los scenario":
                                                   f"€{results['annual_city_opex']:,.0f}",
                                                   f"€{results['annual_total_costs']:,.0f}",
                                                   f"€{results['lcoe_heat']:.3f}/kWh",
+                                                  f"{results['buffer_energy']:,.0f} kWh",
                                                   f"{results['buffer_volume']*1000:,.0f} L",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 

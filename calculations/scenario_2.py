@@ -20,7 +20,7 @@ def calculate_buffer_volume(heatpump_electricity: pd.Series,daily_average_heat_d
     required_storage_energy = (buffer_content.max() - buffer_content.min())
     required_storage_energy *= scop
     volume = (required_storage_energy * 3600000 / 4180 / delta_t) / 1000
-    return volume
+    return volume, required_storage_energy
 
 def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
@@ -42,6 +42,11 @@ def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_
     heatpump_electricity = calculate_heatpump_electricity(hourly_heat_demand=hourly_heat,hourly_cop=cop,)
 
     daily_average_heat = calculate_daily_average_heat_demand(hourly_heat_demand=heatpump_electricity,datetime_series=heat_df["datum"],)
+
+    buffer_volume, buffer_energy = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,
+                                                           daily_average_heat_demand=daily_average_heat,
+                                                           scop=calculate_scop(hourly_heat_demand=hourly_heat,hourly_cop=cop),
+                                                           delta_t=delta_t_buffer)
 
     total_electricity = calculate_total_electricity_demand(household_electricity=household_electricity,
                                                            heatpump_electricity=daily_average_heat,)
@@ -79,7 +84,7 @@ def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_
 
     scop = calculate_scop(hourly_heat_demand=hourly_heat,heatpump_electricity=heatpump_electricity,) #(hourly_heat.sum() / heatpump_electricity.sum())
 
-    buffer_volume = (calculate_buffer_volume(heatpump_electricity=heatpump_electricity,daily_average_heat_demand=daily_average_heat,scop=scop,delta_t=delta_t_buffer,))
+    buffer_volume, buffer_energy = (calculate_buffer_volume(heatpump_electricity=heatpump_electricity,daily_average_heat_demand=daily_average_heat,scop=scop,delta_t=delta_t_buffer,))
 
     return {"annual_city_electricity_demand":annual_city_electricity_demand,
             "peak_city_electricity_demand":peak_city_electricity_demand,
@@ -89,4 +94,5 @@ def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_
             "annual_grid_capex":grid_capex,
             "annual_total_costs":total_costs,
             "lcoe_heat":lcoe_heat,
-            "buffer_volume":buffer_volume,}
+            "buffer_volume":buffer_volume,
+            "buffer_energy":buffer_energy,}
