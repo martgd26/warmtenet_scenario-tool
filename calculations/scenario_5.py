@@ -15,7 +15,7 @@ def calculate_buffer_volume(heatpump_electricity: pd.Series,averaged_heat_demand
     required_storage_energy *= houses
     required_storage_energy *= scop_collective
     volume = (required_storage_energy * 3600000 / 4180 / delta_t_buffer_two_week /1000)
-    return volume
+    return volume, required_storage_energy
 
 def calculate_buffer_capex(buffer_volume: float,cost_per_m3: float, annuity_factor: float,) -> float:
     return (buffer_volume * cost_per_m3 * annuity_factor)
@@ -76,7 +76,7 @@ def run_scenario_5(houses: int,annual_electricity_demand_kwh: float,annual_heat_
     grid_capex = calculate_grid_capex(peak_heatpump_electricity_kw=two_week_average_heat.max(),houses=houses,
                                       grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw_centralized,annuity_factor=annuity_factor,)
 
-    buffer_volume = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,averaged_heat_demand=two_week_average_heat,
+    buffer_volume, buffer_energy = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,averaged_heat_demand=two_week_average_heat,
                                             scop_collective=scop_collective,houses=houses,
                                             delta_t_buffer_two_week=delta_t_buffer_two_week,)
     
@@ -97,4 +97,5 @@ def run_scenario_5(houses: int,annual_electricity_demand_kwh: float,annual_heat_
             "annual_total_costs":total_costs,
             "lcoe_heat":lcoe_heat,
             "buffer_volume":buffer_volume,
+            "buffer_energy":buffer_energy,
             "buffer_capex": buffer_capex}
