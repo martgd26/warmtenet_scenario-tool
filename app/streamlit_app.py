@@ -102,10 +102,10 @@ with st.sidebar:
                         buffer_cost_per_m3_5 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="compare_s5_buffer_cost")
 
     st.divider()
-    if mode == "Single Scenario":
+    if mode == "Los scenario":
         calculate = st.button( "Bereken scenario", use_container_width=True,)
 
-    elif mode == "Compare Scenarios":
+    elif mode == "Vergelijk scenario's":
         calculate_comparison = st.button( "Vergelijk scenario's", use_container_width=True,)
 
     st.divider()
@@ -125,7 +125,7 @@ with st.sidebar:
         grid_expansion_cost_eur_per_kw_centralized = st.number_input("Netuitbreidingskosten gecentraliseerd (€ / kW) *ref. [2]*", value=650,)
 
 
-if mode == "Single Scenario":
+if mode == "Los scenario":
 
     if calculate:
         if scenario == "Individual Heat Pump":
