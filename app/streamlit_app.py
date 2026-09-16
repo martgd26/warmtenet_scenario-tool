@@ -397,10 +397,13 @@ if mode == "Vergelijk scenario's":
             "Bufferenergie (kWh)": (f"{scenario_results['buffer_energy']:,.0f}"
                                     if "buffer_energy" in scenario_results 
                                     else "N/A"),
-            "Buffervolume (m³)": (f"{scenario_results['buffer_volume']:,.0f} m³ "
-                                  f"(20 × {(scenario_results['buffer_volume']/20)**0.5:,.0f} × {(scenario_results['buffer_volume']/20)**0.5:,.0f} m)"
-                                  if "buffer_volume" in scenario_results
-                                  else "N/A"),} for scenario_name, scenario_results in results.items()})
+            "Buffervolume (m³)": (f"{scenario_results['buffer_volume']:,.0f} m³"
+                                  if scenario_name == "Individuele warmtepomp + dagbuffer"
+                                  else (f"{scenario_results['buffer_volume']:,.0f} m³ "
+                                        f"(20 × {(scenario_results['buffer_volume']/20)**0.5:,.0f} × "
+                                        f"{(scenario_results['buffer_volume']/20)**0.5:,.0f} m)")
+                                        if "buffer_volume" in scenario_results  else "N/A"),} 
+                                        for scenario_name, scenario_results in results.items()})
 
         st.subheader("Scenario vergelijking")
         st.dataframe(comparison_df,use_container_width=True,)
