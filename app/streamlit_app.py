@@ -153,16 +153,16 @@ with st.sidebar:
     st.header("Algemene instellingen")
     analysis_year = st.selectbox("Analysejaar",["2018","2019","2020","2021","2022","2023","2024","2025",],index=7,)
     houses = st.number_input("Aantal huizen", value=82000,)
-    electricity_demand = st.number_input("Elektriciteitsvraag per huis (kWh/jaar) *ref. [1]*",value=2500,)
-    heat_demand = st.number_input("Warmtevraag per huis (GJ/jaar) *ref. [3]*",value=31,)
+    electricity_demand = st.number_input("Elektriciteitsvraag per huis (kWh/jaar)",value=2500,)
+    heat_demand = st.number_input("Warmtevraag per huis (GJ/jaar)",value=31,)
 
     st.divider()
 
     with st.expander("Geavanceerde instellingen"):
         heat_loss_heat_network = st.number_input("Warmteverlies in het warmtenet (%)",value=10,)
         wacc = st.number_input("WACC (%)",value=3,)
-        grid_expansion_cost_eur_per_kw = st.number_input("Netuitbreidingskosten gedecentraliseerd (€ / kW) *ref. [2]*",value=1000,)
-        grid_expansion_cost_eur_per_kw_centralized = st.number_input("Netuitbreidingskosten gecentraliseerd (€ / kW) *ref. [2]*", value=650,)
+        grid_expansion_cost_eur_per_kw = st.number_input("Netuitbreidingskosten gedecentraliseerd (€ / kW)",value=1000,)
+        grid_expansion_cost_eur_per_kw_centralized = st.number_input("Netuitbreidingskosten gecentraliseerd (€ / kW)", value=650,)
 
 
 if mode == "Los scenario":
@@ -396,17 +396,17 @@ if mode == "Vergelijk scenario's":
         st.subheader("Scenario vergelijking")
         st.dataframe(comparison_df,use_container_width=True,)
 
-st.divider()
+#st.divider()
 
-st.subheader("References")
+#st.subheader("References")
 
-st.markdown("""
-**[1]** CBS, https://opendata.cbs.nl/#/CBS/nl/ 
+#st.markdown("""
+#**[1]** CBS, https://opendata.cbs.nl/#/CBS/nl/ 
 
-**[2]** CE Delft (2024), *Het effect van het stagneren van de groei van warmtenetten - Wat als de ontwikkeling van warmtenetten niet op gang komt*, Publicatienummer: 24.240411.179.
+#**[2]** CE Delft (2024), *Het effect van het stagneren van de groei van warmtenetten - Wat als de ontwikkeling van warmtenetten niet op gang komt*, Publicatienummer: 24.240411.179.
 
-https://ce.nl/publicaties/het-effect-van-het-stagneren-van-de-groei-van-warmtenetten/
+#https://ce.nl/publicaties/het-effect-van-het-stagneren-van-de-groei-van-warmtenetten/
 
-**[3]** Mileucentraal, https://www.milieucentraal.nl/energie-besparen/inzicht-in-je-energierekening/gemiddeld-energieverbruik/ 
+#**[3]** Mileucentraal, https://www.milieucentraal.nl/energie-besparen/inzicht-in-je-energierekening/gemiddeld-energieverbruik/ 
 
-""")
+#""")
