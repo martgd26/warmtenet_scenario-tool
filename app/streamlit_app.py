@@ -196,7 +196,7 @@ if mode == "Los scenario":
                                                   f"€{results['lcoe_heat']:.3f}/kWh",],})
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
-        elif scenario == "Individuele warmtepomp + Dagbuffer":
+        elif scenario == "Individuele warmtepomp + dagbuffer":
             results = run_scenario_2(
             houses=houses,
             annual_electricity_demand_kwh=electricity_demand,
