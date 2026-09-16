@@ -9,7 +9,7 @@ def calculate_buffer_volume(heatpump_electricity: pd.Series,daily_average_heat_d
     required_storage_energy *= houses
     required_storage_energy *= scop_collective
     volume = (required_storage_energy * 3600000 / 4180 / delta_t_buffer_seasonal /1000)
-    return volume
+    return volume, required_storage_energy
 
 def calculate_buffer_capex(buffer_volume: float,cost_per_m3: float, annuity_factor: float,) -> float:
     return (buffer_volume * cost_per_m3 * annuity_factor)
@@ -79,7 +79,7 @@ def run_scenario_4(houses: int,annual_electricity_demand_kwh: float,annual_heat_
     #                                          
     #                                           houses=houses,collective_heat_electricity=year_average_heat,scop_collective=scop_collective,)
 
-    buffer_volume = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,daily_average_heat_demand=year_average_heat,scop_collective=scop_collective,houses=houses,delta_t_buffer_seasonal=delta_t_buffer_seasonal,)
+    buffer_volume, buffer_energy = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,daily_average_heat_demand=year_average_heat,scop_collective=scop_collective,houses=houses,delta_t_buffer_seasonal=delta_t_buffer_seasonal,)
 
     buffer_capex = calculate_buffer_capex(buffer_volume=buffer_volume,cost_per_m3=buffer_cost_per_m3,annuity_factor=annuity_factor,)
 
@@ -98,4 +98,5 @@ def run_scenario_4(houses: int,annual_electricity_demand_kwh: float,annual_heat_
             "annual_total_costs":total_costs,
             "lcoe_heat":lcoe_heat,
             "buffer_volume":buffer_volume,
+            "buffer_energy":buffer_energy,
             "buffer_capex": buffer_capex}
