@@ -209,6 +209,7 @@ if mode == "Los scenario":
             delta_t_buffer = delta_t_buffer
             )
             
+            
             st.header("Resultaten")
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
@@ -267,6 +268,8 @@ if mode == "Los scenario":
             )
             
             st.header("Resultaten")
+
+            st.write(results.keys())
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
