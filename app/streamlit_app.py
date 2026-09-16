@@ -292,8 +292,8 @@ if mode == "Vergelijk scenario's":
                 grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
                 )
 
-        if "Individuele warmtepomp + Dagbuffer" in selected_scenarios:
-            results["Individuele warmtepomp + Dagbuffer"] = run_scenario_2(
+        if "Individuele warmtepomp + dagbuffer" in selected_scenarios:
+            results["Individuele warmtepomp + dagbuffer"] = run_scenario_2(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -317,8 +317,8 @@ if mode == "Vergelijk scenario's":
                 grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
                 )
 
-        if "Collectief warmtesysteem + Seizoensbuffer" in selected_scenarios:
-            results["Collectief warmtesysteem + Seizoensbuffer"] = run_scenario_4(
+        if "Collectief warmtesysteem + seizoenbuffer" in selected_scenarios:
+            results["Collectief warmtesysteem + seizoenbuffer"] = run_scenario_4(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -331,8 +331,8 @@ if mode == "Vergelijk scenario's":
                 buffer_cost_per_m3=buffer_cost_per_m3_4
                 )
 
-        if "Collectief warmtesysteem + Tweeweekse buffer" in selected_scenarios:
-            results["Collectief warmtesysteem + Tweeweekse buffer"] = run_scenario_5(
+        if "Collectief warmtesysteem + twee weken buffer" in selected_scenarios:
+            results["Collectief warmtesysteem + twee weken buffer"] = run_scenario_5(
                 houses=houses,
                 annual_electricity_demand_kwh=electricity_demand,
                 annual_heat_demand_gj=heat_demand,
@@ -355,7 +355,6 @@ if mode == "Vergelijk scenario's":
 
         st.subheader("Scenario Comparison")
         st.dataframe(comparison_df,use_container_width=True,)
-
 
 st.divider()
 
