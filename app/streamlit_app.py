@@ -143,10 +143,10 @@ if mode == "Los scenario":
             
             st.header("Scenario Results")
 
-            results_df = pd.DataFrame({"Metric": ["Peak Demand","Annual CO₂ Emissions",
-                                                  "Heat System CAPEX","Grid CAPEX",
-                                                  "Annual OPEX","Total Annual Costs",
-                                                  "LCoE Heat",],
+            results_df = pd.DataFrame({"Metric": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
+                                                  "Warmtesysteem CAPEX","Netwerk CAPEX",
+                                                  "Jaarlijkse OPEX","Totale jaarlijkse kosten",
+                                                  "LCoE Warmte",],
                                         "Value": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
@@ -171,10 +171,10 @@ if mode == "Los scenario":
             
             st.header("Scenario Results")
 
-            results_df = pd.DataFrame({"Metric": ["Peak Demand","Annual CO₂ Emissions",
-                                                  "Heat System CAPEX","Grid CAPEX",
-                                                  "Annual OPEX","Total Annual Costs",
-                                                  "LCoE Heat","Buffer volume"],
+            results_df = pd.DataFrame({"Metric": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
+                                                  "Warmtesysteem CAPEX","Netwerk CAPEX",
+                                                  "Jaarlijkse OPEX","Totale jaarlijkse kosten",
+                                                  "LCoE Warmte","Buffervolume"],
                                         "Value": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
@@ -199,10 +199,10 @@ if mode == "Los scenario":
             
             st.header("Scenario Results")
 
-            results_df = pd.DataFrame({"Metric": ["Peak Demand","Annual CO₂ Emissions",
-                                                  "Heat System CAPEX","Grid CAPEX",
-                                                  "Annual OPEX","Total Annual Costs",
-                                                  "LCoE Heat",],
+            results_df = pd.DataFrame({"Metric": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
+                                                  "Warmtesysteem CAPEX","Netwerk CAPEX",
+                                                  "Jaarlijkse OPEX","Totale jaarlijkse kosten",
+                                                  "LCoE Warmte",],
                                         "Value": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
@@ -228,10 +228,10 @@ if mode == "Los scenario":
             
             st.header("Scenario Results")
 
-            results_df = pd.DataFrame({"Metric": ["Peak Demand","Annual CO₂ Emissions",
-                                                  "Heat System CAPEX","Grid CAPEX", "Buffer CAPEX",
-                                                  "Annual OPEX","Total Annual Costs",
-                                                  "LCoE Heat","Buffer volume"],
+            results_df = pd.DataFrame({"Metric": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
+                                                  "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
+                                                  "Jaarlijkse OPEX","Totale jaarlijkse kosten",
+                                                  "LCoE Warmte","Buffervolume"],
                                         "Value": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
@@ -259,10 +259,10 @@ if mode == "Los scenario":
             
             st.header("Scenario Results")
 
-            results_df = pd.DataFrame({"Metric": ["Peak Demand","Annual CO₂ Emissions",
-                                                  "Heat System CAPEX","Grid CAPEX", "Buffer CAPEX",
-                                                  "Annual OPEX","Total Annual Costs",
-                                                  "LCoE Heat","Buffer volume"],
+            results_df = pd.DataFrame({"Metric": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
+                                                  "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
+                                                  "Jaarlijkse OPEX","Totale jaarlijkse kosten",
+                                                  "LCoE Warmte","Buffervolume"],
                                         "Value": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
@@ -346,11 +346,11 @@ if mode == "Vergelijk scenario's":
                 )
 
         comparison_df = pd.DataFrame({scenario_name: {
-            "Peak Demand (kW)": f"{scenario_results['peak_city_electricity_demand']:,.0f}",
-            "CO₂ (ton/year)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
-            "Annual Costs (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
-            "LCoE Heat (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
-            "Buffer volume (m³)": f"{scenario_results.get('buffer_volume', 0):,.1f}" if 'buffer_volume' in scenario_results else "N/A"
+            "Piekvraag (kW)": f"{scenario_results['peak_city_electricity_demand']:,.0f}",
+            "Jaarlijkse CO₂-uitstoot (ton/year)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
+            "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
+            "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
+            "Buffervolume (m³)": f"{scenario_results.get('buffer_volume', 0):,.1f}" if 'buffer_volume' in scenario_results else "N/A"
             } for scenario_name, scenario_results in results.items()})
 
         st.subheader("Scenario Comparison")
