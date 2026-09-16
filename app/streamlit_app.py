@@ -393,7 +393,7 @@ if mode == "Vergelijk scenario's":
             "Buffervolume (m³)": f"{scenario_results.get('buffer_volume', 0):,.1f}" if 'buffer_volume' in scenario_results else "N/A"
             } for scenario_name, scenario_results in results.items()})
 
-        st.subheader("Scenario Comparison")
+        st.subheader("Scenario vergelijking")
         st.dataframe(comparison_df,use_container_width=True,)
 
 st.divider()
