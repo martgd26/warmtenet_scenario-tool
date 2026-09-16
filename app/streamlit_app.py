@@ -179,7 +179,7 @@ if mode == "Los scenario":
             grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
             )
             
-            st.header("Scenario Results")
+            st.header("Resultaten")
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX",
@@ -207,7 +207,7 @@ if mode == "Los scenario":
             delta_t_buffer = delta_t_buffer
             )
             
-            st.header("Scenario Results")
+            st.header("Resultaten")
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX",
@@ -235,7 +235,7 @@ if mode == "Los scenario":
             grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
             )
             
-            st.header("Scenario Results")
+            st.header("Resultaten")
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX",
@@ -264,7 +264,7 @@ if mode == "Los scenario":
             buffer_cost_per_m3 = buffer_cost_per_m3_4,
             )
             
-            st.header("Scenario Results")
+            st.header("Resultaten")
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
@@ -295,7 +295,7 @@ if mode == "Los scenario":
             buffer_cost_per_m3 = buffer_cost_per_m3_5,
             )
             
-            st.header("Scenario Results")
+            st.header("Resultaten")
 
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX", "Buffer CAPEX",
@@ -385,7 +385,7 @@ if mode == "Vergelijk scenario's":
 
         comparison_df = pd.DataFrame({scenario_name: {
             "Piekvraag (kW)": f"{scenario_results['peak_city_electricity_demand']:,.0f}",
-            "Jaarlijkse CO₂-uitstoot (ton/year)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
+            "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
             "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
             "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
             "Buffervolume (m³)": f"{scenario_results.get('buffer_volume', 0):,.1f}" if 'buffer_volume' in scenario_results else "N/A"
