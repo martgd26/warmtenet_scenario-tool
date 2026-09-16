@@ -390,8 +390,13 @@ if mode == "Vergelijk scenario's":
             "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
             "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
             "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
-            "Buffervolume (m³)": f"{scenario_results.get('buffer_volume', 0):,.1f}" if 'buffer_volume' in scenario_results else "N/A"
-            } for scenario_name, scenario_results in results.items()})
+            "Buffervolume (m³)": (
+                 f"{scenario_results['buffer_volume']:,.0f} m³ "
+                 f"(20 × {(scenario_results['buffer_volume']/20)**0.5:,.0f} × {(scenario_results['buffer_volume']/20)**0.5:,.0f} m)"
+                 if "buffer_volume" in scenario_results
+                 else "N/A")
+            #"Buffervolume (m³)": f"{scenario_results.get('buffer_volume', 0):,.0f}" if 'buffer_volume' in scenario_results else "N/A"
+            #} for scenario_name, scenario_results in results.items()})
 
         st.subheader("Scenario vergelijking")
         st.dataframe(comparison_df,use_container_width=True,)
