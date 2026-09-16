@@ -94,5 +94,6 @@ def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_
             "annual_grid_capex":grid_capex,
             "annual_total_costs":total_costs,
             "lcoe_heat":lcoe_heat,
+            "buffer_energy":buffer_energy,
             "buffer_volume":buffer_volume,
-            "buffer_energy":buffer_energy,}
+            }

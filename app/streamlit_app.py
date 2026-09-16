@@ -215,7 +215,7 @@ if mode == "Los scenario":
             results_df = pd.DataFrame({"Indicator": ["Piekvraag","Jaarlijkse CO₂-uitstoot",
                                                   "Warmtesysteem CAPEX","Netwerk CAPEX",
                                                   "Jaarlijkse OPEX","Totale jaarlijkse kosten",
-                                                  "LCoE Warmte","Buffervolume"],
+                                                  "LCoE Warmte","Bufferenergie","Buffervolume"],
                                         "Waarde": [f"{results['peak_city_electricity_demand']:,.0f} kW",
                                                   f"{results['annual_co2']/1000:,.0f} ton/year",
                                                   f"€{results['annual_capex']:,.0f}",
