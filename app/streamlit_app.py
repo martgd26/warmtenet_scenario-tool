@@ -12,7 +12,7 @@ from calculations.scenario_5 import run_scenario_5
 
 st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
 
-st.markdown("""<style>[data-testid="stToolbar"] {display: none;}</style>""", unsafe_allow_html=True)
+#st.markdown("""<style>[data-testid="stToolbar"] {display: none;}</style>""", unsafe_allow_html=True)
 
 st.title("Warmtenetten als onderdeel van het energiesysteem")
 
