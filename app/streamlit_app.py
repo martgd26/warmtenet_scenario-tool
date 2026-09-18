@@ -10,7 +10,12 @@ from calculations.scenario_3 import run_scenario_3
 from calculations.scenario_4 import run_scenario_4
 from calculations.scenario_5 import run_scenario_5
 
-st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
+#st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
+st.set_page_config(
+    page_title="Warmtenet Tool",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 
 st.markdown("""
 <style>
