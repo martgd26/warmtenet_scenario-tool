@@ -25,6 +25,9 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.sidebar.write("Sidebar test")
+
+
 st.title("Warmtenetten als onderdeel van het energiesysteem")
 
 st.subheader("rekenmodel om vergelijk te maken tussen individuele en collectieve systemen met en zonder warmte buffers ")
