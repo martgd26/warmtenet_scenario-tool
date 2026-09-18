@@ -20,20 +20,9 @@ st.set_page_config(
 st.markdown("""
 <style>
 
-/* Verberg toolbar rechtsboven */
-[data-testid="stToolbar"] {
+/* Verberg knop met << */
+button[kind="header"] {
     display: none;
-}
-
-/* Verberg sidebar-toggle */
-[data-testid="collapsedControl"] {
-    display: none;
-}
-
-/* Sidebar altijd zichtbaar */
-section[data-testid="stSidebar"] {
-    transform: none !important;
-    visibility: visible !important;
 }
 
 </style>
