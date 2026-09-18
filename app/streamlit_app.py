@@ -10,9 +10,34 @@ from calculations.scenario_3 import run_scenario_3
 from calculations.scenario_4 import run_scenario_4
 from calculations.scenario_5 import run_scenario_5
 
-st.set_page_config(page_title="Warmtenet Tool",layout="wide",)
-
+st.set_page_config(
+    page_title="Warmtenet Tool",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 #st.markdown("""<style>[data-testid="stToolbar"] {display: none;}</style>""", unsafe_allow_html=True)
+
+st.markdown("""
+<style>
+
+/* Verberg toolbar rechtsboven */
+[data-testid="stToolbar"] {
+    display: none;
+}
+
+/* Verberg sidebar-toggle */
+[data-testid="collapsedControl"] {
+    display: none;
+}
+
+/* Sidebar altijd zichtbaar */
+section[data-testid="stSidebar"] {
+    transform: none !important;
+    visibility: visible !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 st.title("Warmtenetten als onderdeel van het energiesysteem")
 
