@@ -74,6 +74,9 @@ with st.sidebar:
                 capex_per_house_2 = st.number_input("CAPEX (€ per huis)",value=8500.0,)
                 heatpump_lifetime_years_2 = st.number_input("Levensduur warmtepomp (jaren)",value=15,key="single_s2_lifetime",)
                 delta_t_buffer = st.number_input("Buffer ΔT (°C)", value=20.0,)
+                carnot_efficiency_individual = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="single_s2_carnot",)
+                t_delivery_individual = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s2_t_delivery",)
+
 
         elif scenario == "Collectief warmtesysteem":
             with st.expander("Scenario specifieke instellingen"):
@@ -127,6 +130,8 @@ with st.sidebar:
                 capex_per_house_2 = st.number_input("CAPEX (€ per huis)",value=8500.0,)
                 heatpump_lifetime_years_2 = st.number_input("Levensduur warmtepomp (jaren)",value=15,key="compare_s2_lifetime",)
                 delta_t_buffer = st.number_input("Buffer ΔT (°C)",value=20.0,)
+                carnot_efficiency_individual_compare_s2 = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="compare_s2_carnot",)
+                t_delivery_individual_compare_s2 = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="compare_s2_t_delivery",)
 
         if "Collectief warmtesysteem" in selected_scenarios:
                     with st.sidebar.expander("Instellingen 'Collectief warmtesysteem'"):
@@ -215,7 +220,9 @@ if mode == "Los scenario":
             heatpump_lifetime_years=heatpump_lifetime_years_2,
             wacc=wacc,
             grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
-            delta_t_buffer = delta_t_buffer
+            delta_t_buffer = delta_t_buffer,
+            carnot_efficiency_individual = carnot_efficiency_individual,
+            t_delivery_individual = t_delivery_individual,            
             )
             
             
@@ -358,6 +365,8 @@ if mode == "Vergelijk scenario's":
                 wacc=wacc,
                 grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
                 delta_t_buffer=delta_t_buffer,
+                carnot_efficiency_individual=carnot_efficiency_individual_compare_s2,
+                t_delivery_individual=t_delivery_individual_compare_s2,
                 )
 
         if "Collectief warmtesysteem" in selected_scenarios:
