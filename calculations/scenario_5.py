@@ -4,9 +4,9 @@ from calculations.common import *
 from calculations.load_profiles import load_profiles
 from calculations.scenario_3 import calculate_collective_scop
 
-def calculate_two_week_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,) -> pd.Series:
+def calculate_two_week_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,buffer_days: float,) -> pd.Series:
     excel_serial = ((datetime_series - pd.Timestamp("1899-12-30")).dt.total_seconds() / 86400)
-    two_week_groups = ((excel_serial - 1 / 24) // 14).astype(int)
+    two_week_groups = ((excel_serial - 1 / 24) // buffer_days).astype(int)
     return (hourly_heat_demand.groupby(two_week_groups).transform("mean"))
 
 def calculate_buffer_volume(heatpump_electricity: pd.Series,averaged_heat_demand: pd.Series,scop_collective: float,
@@ -24,7 +24,7 @@ def calculate_buffer_capex(buffer_volume: float,cost_per_m3: float, annuity_fact
 def run_scenario_5(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw_centralized: float,
-                   delta_t_buffer_two_week: float,buffer_cost_per_m3: float,
+                   delta_t_buffer_two_week: float,buffer_cost_per_m3: float,buffer_days: float,
                    heat_loss_collective_heat_system: float,carnot_efficiency: float,t_delivery: float,t_wko: float):
 
     # Loading profiles
@@ -44,7 +44,8 @@ def run_scenario_5(houses: int,annual_electricity_demand_kwh: float,annual_heat_
     heatpump_electricity = (hourly_heat / scop_collective / (1 - heat_loss_collective_heat_system))
 
     two_week_average_heat = calculate_two_week_average_heat_demand(hourly_heat_demand=heatpump_electricity,
-                                                                   datetime_series=heat_df["datum"],)
+                                                                   datetime_series=heat_df["datum"],
+                                                                   buffer_days=buffer_days,)
     
     total_electricity = calculate_total_electricity_demand(household_electricity=household_electricity,
                                                            heatpump_electricity=two_week_average_heat,)

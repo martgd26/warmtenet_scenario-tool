@@ -100,6 +100,7 @@ with st.sidebar:
                 capex_per_house_5 = st.number_input("CAPEX (€ per huis)",value=15000.0,key="single_s5_capex",)
                 heatpump_lifetime_years_5 = st.number_input("Levensduur warmtesysteem (jaren)",value=30,key="single_s5_lifetime",)
                 delta_t_buffer_two_week = st.number_input("Twee weken buffer ΔT (°C)", value=50.0,)
+                buffer_days = st.number_input("Bufferduur (dagen)",value=14.0,min_value=1.0,key="single_s5_buffer_days",)
                 buffer_cost_per_m3_5 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="single_s5_buffer_cost")
                 carnot_efficiency_collective = st.number_input("Carnot-rendement (-)",value=0.55,step=0.01,key="single_s5_carnot",)
                 t_delivery_collective = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s5_t_delivery",)
@@ -164,6 +165,7 @@ with st.sidebar:
                         capex_per_house_5 = st.number_input("CAPEX (€ per huis)",value=15000.0,key="compare_s5_capex",)
                         heatpump_lifetime_years_5 = st.number_input("Levensduur warmtepomp (jaren)",value=30,key="compare_s5_lifetime",)
                         delta_t_buffer_two_week = st.number_input("Twee weken buffer ΔT (°C)",value=50.0,)
+                        buffer_days_compare_s5 = st.number_input("Bufferduur (dagen)",value=14.0,min_value=1.0,key="compare_s5_buffer_days",)
                         buffer_cost_per_m3_5 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="compare_s5_buffer_cost")
                         carnot_efficiency_collective_compare_s5 = st.number_input("Carnot-rendement (-)",value=0.55,step=0.01,key="compare_s5_carnot",)
                         t_delivery_collective_compare_s5 = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="compare_s5_t_delivery",)
@@ -336,6 +338,7 @@ if mode == "Los scenario":
             wacc=wacc,
             grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
             delta_t_buffer_two_week = delta_t_buffer_two_week,
+            buffer_days = buffer_days,
             buffer_cost_per_m3 = buffer_cost_per_m3_5,
             heat_loss_collective_heat_system=heat_loss_heat_network / 100,
             carnot_efficiency=carnot_efficiency_collective,
@@ -441,6 +444,7 @@ if mode == "Vergelijk scenario's":
                 wacc=wacc,
                 grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
                 delta_t_buffer_two_week=delta_t_buffer_two_week,
+                buffer_days=buffer_days_compare_s5,
                 buffer_cost_per_m3=buffer_cost_per_m3_5,
                 heat_loss_collective_heat_system=heat_loss_heat_network / 100,
                 carnot_efficiency=carnot_efficiency_collective_compare_s5,
