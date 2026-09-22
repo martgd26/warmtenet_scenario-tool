@@ -19,6 +19,7 @@ def run_scenario_4(houses: int,annual_electricity_demand_kwh: float,annual_heat_
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw_centralized: float,
                    delta_t_buffer_seasonal: float,buffer_cost_per_m3: float,
+                   heat_loss_collective_heat_system: float,
                    carnot_efficiency: float,t_delivery: float,t_wko: float,):
 
     # Loading profiles
@@ -34,7 +35,7 @@ def run_scenario_4(houses: int,annual_electricity_demand_kwh: float,annual_heat_
 
     hourly_heat = calculate_hourly_heat_demand(annual_heat_demand_gj=annual_heat_demand_gj,heat_profile=heat_profile,)
 
-    heatpump_electricity = (hourly_heat / scop_collective / (1 - 0.10))
+    heatpump_electricity = (hourly_heat / scop_collective / (1 - heat_loss_collective_heat_system))
 
     year_average_heat = pd.Series(heatpump_electricity.mean(),index=heatpump_electricity.index,)
 
