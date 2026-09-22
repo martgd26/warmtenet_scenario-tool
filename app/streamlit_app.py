@@ -295,7 +295,7 @@ if mode == "Los scenario":
             grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
             delta_t_buffer_seasonal = delta_t_buffer_seasonal,
             buffer_cost_per_m3 = buffer_cost_per_m3_4,
-            carnot_efficiency=carnot_efficiency,
+            carnot_efficiency=carnot_efficiency_collective,
             t_delivery=t_delivery_collective,
             t_wko=t_wko,
             )
