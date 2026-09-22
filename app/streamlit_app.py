@@ -67,6 +67,7 @@ with st.sidebar:
                 capex_per_house_1 = st.number_input("CAPEX (€ per huis)",value=7000.0,)
                 heatpump_lifetime_years_1 = st.number_input("Levensduur warmtepomp (jaren)",value=15,key="single_s1_lifetime",)
                 carnot_efficiency_individual = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="single_s1_carnot",)
+                t_delivery_individual = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s1_t_delivery",)
 
         elif scenario == "Individuele warmtepomp + dagbuffer":
             with st.expander("Scenario specifieke instellingen"):
@@ -119,6 +120,7 @@ with st.sidebar:
                 capex_per_house_1 = st.number_input("CAPEX (€ per huis)",value=7000.0,)
                 heatpump_lifetime_years_1 = st.number_input("Levensduur warmtepomp (jaren)",value=15,key="compare_s1_lifetime",)
                 carnot_efficiency_individual_compare = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="compare_s1_carnot",)
+                t_delivery_individual_compare = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="compare_s1_t_delivery",)
         
         if "Individuele warmtepomp + dagbuffer" in selected_scenarios:
             with st.sidebar.expander("Instellingen 'Individuele warmtepomp + dagbuffer'"):
@@ -185,6 +187,7 @@ if mode == "Los scenario":
             wacc=wacc,
             grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
             carnot_efficiency_individual=carnot_efficiency_individual,
+            t_delivery_individual=t_delivery_individual,
             )
             
             st.header("Resultaten")
@@ -341,6 +344,7 @@ if mode == "Vergelijk scenario's":
                 wacc=wacc,
                 grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
                 carnot_efficiency_individual=carnot_efficiency_individual_compare,
+                t_delivery_individual=t_delivery_individual_compare,
                 )
 
         if "Individuele warmtepomp + dagbuffer" in selected_scenarios:

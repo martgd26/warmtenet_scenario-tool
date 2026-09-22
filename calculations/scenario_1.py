@@ -12,14 +12,15 @@ def calculate_scop(hourly_heat_demand: pd.Series,heatpump_electricity: pd.Series
 def run_scenario_1(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw: float,
-                   carnot_efficiency_individual: float,):
+                   carnot_efficiency_individual: float,
+                   t_delivery_individual: float,):
 
     # Loading profiles
     (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
     heat_profile = (heat_df["MW"] / heat_df["MW"].sum())
 
     #cop = (0.45 * ((273 + 50) / (50 - heat_df["°C"])))
-    cop = (carnot_efficiency_individual * ((273 + 50) / (50 - heat_df["°C"])))
+    cop = (carnot_efficiency_individual * ((273 + t_delivery_individual) / (t_delivery_individual - heat_df["°C"])))
 
     # Calculations
     household_electricity = calculate_household_electricity(annual_electricity_demand_kwh=annual_electricity_demand_kwh,
