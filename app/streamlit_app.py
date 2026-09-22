@@ -338,8 +338,8 @@ if mode == "Los scenario":
             delta_t_buffer_two_week = delta_t_buffer_two_week,
             buffer_cost_per_m3 = buffer_cost_per_m3_5,
             heat_loss_collective_heat_system=heat_loss_heat_network / 100,
-            carnot_efficiency=carnot_efficiency,
-            t_delivery=t_delivery,
+            carnot_efficiency=carnot_efficiency_collective,
+            t_delivery=t_delivery_collective,
             t_wko=t_wko,
             )
             
