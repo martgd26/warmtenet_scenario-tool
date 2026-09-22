@@ -101,6 +101,9 @@ with st.sidebar:
                 heatpump_lifetime_years_5 = st.number_input("Levensduur warmtesysteem (jaren)",value=30,key="single_s5_lifetime",)
                 delta_t_buffer_two_week = st.number_input("Twee weken buffer ΔT (°C)", value=50.0,)
                 buffer_cost_per_m3_5 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="single_s5_buffer_cost")
+                carnot_efficiency_collective = st.number_input("Carnot-rendement (-)",value=0.55,step=0.01,key="single_s5_carnot",)
+                t_delivery_collective = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s5_t_delivery",)
+                t_wko = st.number_input("WKO-temperatuur (°C)",value=17.0,key="single_s5_t_wko",)
 
 
     if mode == "Vergelijk scenario's":
@@ -162,6 +165,9 @@ with st.sidebar:
                         heatpump_lifetime_years_5 = st.number_input("Levensduur warmtepomp (jaren)",value=30,key="compare_s5_lifetime",)
                         delta_t_buffer_two_week = st.number_input("Twee weken buffer ΔT (°C)",value=50.0,)
                         buffer_cost_per_m3_5 = st.number_input("Buffer CAPEX (€ / m³)",value=50.0, key="compare_s5_buffer_cost")
+                        carnot_efficiency_collective_compare_s5 = st.number_input("Carnot-rendement (-)",value=0.55,step=0.01,key="compare_s5_carnot",)
+                        t_delivery_collective_compare_s5 = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="compare_s5_t_delivery",)
+                        t_wko_compare_s5 = st.number_input("WKO-temperatuur (°C)",value=17.0,key="compare_s5_t_wko",)
 
     st.divider()
     if mode == "Los scenario":
@@ -331,6 +337,10 @@ if mode == "Los scenario":
             grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
             delta_t_buffer_two_week = delta_t_buffer_two_week,
             buffer_cost_per_m3 = buffer_cost_per_m3_5,
+            heat_loss_collective_heat_system=heat_loss_collective_heat_system,
+            carnot_efficiency=carnot_efficiency,
+            t_delivery=t_delivery,
+            t_wko=t_wko,
             )
             
             st.header("Resultaten")
@@ -431,7 +441,11 @@ if mode == "Vergelijk scenario's":
                 wacc=wacc,
                 grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
                 delta_t_buffer_two_week=delta_t_buffer_two_week,
-                buffer_cost_per_m3=buffer_cost_per_m3_5
+                buffer_cost_per_m3=buffer_cost_per_m3_5,
+                heat_loss_collective_heat_system=heat_loss_heat_network / 100,
+                carnot_efficiency=carnot_efficiency_collective_compare_s5,
+                t_delivery=t_delivery_collective_compare_s5,
+                t_wko=t_wko_compare_s5,
                 )
 
         comparison_df = pd.DataFrame({scenario_name: {

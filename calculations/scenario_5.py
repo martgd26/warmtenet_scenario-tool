@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from calculations.common import *
 from calculations.load_profiles import load_profiles
+from calculations.scenario_3 import calculate_collective_scop
 
 def calculate_two_week_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,) -> pd.Series:
     excel_serial = ((datetime_series - pd.Timestamp("1899-12-30")).dt.total_seconds() / 86400)
@@ -23,18 +24,16 @@ def calculate_buffer_capex(buffer_volume: float,cost_per_m3: float, annuity_fact
 def run_scenario_5(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw_centralized: float,
-                   delta_t_buffer_two_week: float,buffer_cost_per_m3: float,):
+                   delta_t_buffer_two_week: float,buffer_cost_per_m3: float,
+                   heat_loss_collective_heat_system: float,carnot_efficiency: float,t_delivery: float,t_wko: float):
 
     # Loading profiles
     (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
     heat_profile = (heat_df["MW"] / heat_df["MW"].sum())
     heat_df["datum"] = pd.to_datetime(heat_df["datum"],dayfirst=True,)
 
-    carnot_efficiency = 0.55
-    t_delivery = 50
-    t_wko = 17
-
-    scop_collective = (carnot_efficiency * ((273 + t_delivery) / (t_delivery - t_wko)))
+    #scop_collective = (carnot_efficiency * ((273 + t_delivery) / (t_delivery - t_wko)))
+    scop_collective = calculate_collective_scop(carnot_efficiency=carnot_efficiency,t_delivery=t_delivery,t_wko=t_wko,)
 
     # Calculations
     household_electricity = calculate_household_electricity(annual_electricity_demand_kwh=annual_electricity_demand_kwh,
@@ -42,7 +41,7 @@ def run_scenario_5(houses: int,annual_electricity_demand_kwh: float,annual_heat_
 
     hourly_heat = calculate_hourly_heat_demand(annual_heat_demand_gj=annual_heat_demand_gj,heat_profile=heat_profile,)
 
-    heatpump_electricity = (hourly_heat / scop_collective / (1 - 0.10))
+    heatpump_electricity = (hourly_heat / scop_collective / (1 - heat_loss_collective_heat_system))
 
     two_week_average_heat = calculate_two_week_average_heat_demand(hourly_heat_demand=heatpump_electricity,
                                                                    datetime_series=heat_df["datum"],)
