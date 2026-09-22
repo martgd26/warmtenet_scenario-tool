@@ -118,6 +118,7 @@ with st.sidebar:
             with st.sidebar.expander("Instellingen 'Individuele warmtepomp'"):
                 capex_per_house_1 = st.number_input("CAPEX (€ per huis)",value=7000.0,)
                 heatpump_lifetime_years_1 = st.number_input("Levensduur warmtepomp (jaren)",value=15,key="compare_s1_lifetime",)
+                carnot_efficiency_individual_compare = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="compare_s1_carnot",)
         
         if "Individuele warmtepomp + dagbuffer" in selected_scenarios:
             with st.sidebar.expander("Instellingen 'Individuele warmtepomp + dagbuffer'"):
@@ -339,6 +340,7 @@ if mode == "Vergelijk scenario's":
                 heatpump_lifetime_years=heatpump_lifetime_years_1,
                 wacc=wacc,
                 grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
+                carnot_efficiency_individual=carnot_efficiency_individual_compare,
                 )
 
         if "Individuele warmtepomp + dagbuffer" in selected_scenarios:
