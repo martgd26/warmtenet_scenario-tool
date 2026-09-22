@@ -10,23 +10,9 @@ from calculations.scenario_3 import run_scenario_3
 from calculations.scenario_4 import run_scenario_4
 from calculations.scenario_5 import run_scenario_5
 
-st.set_page_config(
-    page_title="Warmtenet Tool",
-    layout="wide",
-    initial_sidebar_state="expanded",
-)
-#st.markdown("""<style>[data-testid="stToolbar"] {display: none;}</style>""", unsafe_allow_html=True)
+st.set_page_config(page_title="Warmtenet Tool",layout="wide",initial_sidebar_state="expanded",)
 
-st.markdown("""
-<style>
-
-/* Verberg knop met << */
-button[kind="header"] {
-    display: none;
-}
-
-</style>
-""", unsafe_allow_html=True)
+st.markdown("""<style>/* Verberg knop met << */button[kind="header"] {display: none;}</style>""", unsafe_allow_html=True)
 
 st.title("Warmtenetten als onderdeel van het energiesysteem")
 
@@ -80,6 +66,7 @@ with st.sidebar:
             with st.expander("Scenario specifieke instellingen"):
                 capex_per_house_1 = st.number_input("CAPEX (€ per huis)",value=7000.0,)
                 heatpump_lifetime_years_1 = st.number_input("Levensduur warmtepomp (jaren)",value=15,key="single_s1_lifetime",)
+                carnot_efficiency_individual = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="single_s1_carnot",)
 
         elif scenario == "Individuele warmtepomp + dagbuffer":
             with st.expander("Scenario specifieke instellingen"):
@@ -179,6 +166,7 @@ with st.sidebar:
         wacc = st.number_input("WACC (%)",value=3,)
         grid_expansion_cost_eur_per_kw = st.number_input("Netuitbreidingskosten gedecentraliseerd (€ / kW)",value=1000,)
         grid_expansion_cost_eur_per_kw_centralized = st.number_input("Netuitbreidingskosten gecentraliseerd (€ / kW)", value=650,)
+        
 
 
 if mode == "Los scenario":
@@ -195,6 +183,7 @@ if mode == "Los scenario":
             heatpump_lifetime_years=heatpump_lifetime_years_1,
             wacc=wacc,
             grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
+            carnot_efficiency_individual=carnot_efficiency_individual,
             )
             
             st.header("Resultaten")
