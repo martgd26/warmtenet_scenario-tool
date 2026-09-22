@@ -249,20 +249,18 @@ if mode == "Los scenario":
             st.dataframe(results_df,hide_index=True,use_container_width=True,)
 
         elif scenario == "Collectief warmtesysteem":
-            results = run_scenario_3(
-            houses=houses,
-            annual_electricity_demand_kwh=electricity_demand,
-            annual_heat_demand_gj=heat_demand,
-            analysis_year=analysis_year,
-            capex_per_house=capex_per_house_3,
-            heatpump_lifetime_years=heatpump_lifetime_years_3,
-            wacc=wacc,
-            grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
-            heat_loss_collective_heat_system=heat_loss_collective_heat_system,
-            carnot_efficiency=carnot_efficiency,
-            t_delivery=t_delivery_collective,
-            t_wko=t_wko,
-            )
+            results = run_scenario_3(houses=houses,
+                                     annual_electricity_demand_kwh=electricity_demand,
+                                     annual_heat_demand_gj=heat_demand,
+                                     analysis_year=analysis_year,
+                                     capex_per_house=capex_per_house_3,
+                                     heatpump_lifetime_years=heatpump_lifetime_years_3,
+                                     wacc=wacc,
+                                     grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
+                                     heat_loss_collective_heat_system=heat_loss_heat_network / 100,
+                                     carnot_efficiency=carnot_efficiency_collective,
+                                     t_delivery=t_delivery_collective,
+                                     t_wko=t_wko,)
             
             st.header("Resultaten")
 
