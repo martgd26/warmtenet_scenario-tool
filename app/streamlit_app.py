@@ -77,11 +77,13 @@ with st.sidebar:
                 carnot_efficiency_individual = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="single_s2_carnot",)
                 t_delivery_individual = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s2_t_delivery",)
 
-
         elif scenario == "Collectief warmtesysteem":
             with st.expander("Scenario specifieke instellingen"):
                 capex_per_house_3 = st.number_input("CAPEX (€ per huis)",value=15000.0,key="single_s3_capex",)
                 heatpump_lifetime_years_3 = st.number_input("Levensduur warmtesysteem (jaren)",value=30,key="single_s3_lifetime",)
+                carnot_efficiency_collective = st.number_input("Carnot-rendement (-)",value=0.55,step=0.01,key="single_s3_carnot",)
+                t_delivery_collective = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s3_t_delivery",)
+                t_wko = st.number_input("WKO-temperatuur (°C)",value=17.0,key="single_s3_t_wko",)
 
         elif scenario == "Collectief warmtesysteem + seizoenbuffer":
             with st.expander("Scenario specifieke instellingen"):
@@ -137,6 +139,9 @@ with st.sidebar:
                     with st.sidebar.expander("Instellingen 'Collectief warmtesysteem'"):
                         capex_per_house_3 = st.number_input("CAPEX (€ per house)",value=15000.0,key="compare_s3_capex",)
                         heatpump_lifetime_years_3 = st.number_input("Heat system lifetime (years)",value=30,key="compare_s3_lifetime",)
+                        carnot_efficiency_collective_compare = st.number_input("Carnot-rendement (-)",value=0.55,step=0.01,key="compare_s3_carnot",)
+                        t_delivery_collective_compare = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="compare_s3_t_delivery",)
+                        t_wko_compare = st.number_input("WKO-temperatuur (°C)",value=17.0,key="compare_s3_t_wko",)
 
         if "Collectief warmtesysteem + seizoenbuffer" in selected_scenarios:
                     with st.sidebar.expander("Instellingen 'Collectief warmtesysteem + seizoenbuffer'"):
@@ -253,6 +258,10 @@ if mode == "Los scenario":
             heatpump_lifetime_years=heatpump_lifetime_years_3,
             wacc=wacc,
             grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
+            heat_loss_collective_heat_system=heat_loss_collective_heat_system,
+            carnot_efficiency=carnot_efficiency,
+            t_delivery=t_delivery_collective,
+            t_wko=t_wko,
             )
             
             st.header("Resultaten")
@@ -379,6 +388,10 @@ if mode == "Vergelijk scenario's":
                 heatpump_lifetime_years=heatpump_lifetime_years_3,
                 wacc=wacc,
                 grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
+                heat_loss_collective_heat_system=heat_loss_collective_heat_system,
+                carnot_efficiency=carnot_efficiency_collective_compare,
+                t_delivery=t_delivery_collective_compare,
+                t_wko=t_wko_compare,
                 )
 
         if "Collectief warmtesysteem + seizoenbuffer" in selected_scenarios:

@@ -13,16 +13,15 @@ def calculate_collective_heat_electricity(hourly_heat_demand: pd.Series,scop_col
 def run_scenario_3(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw_centralized: float,
-                   heat_loss_collective_heat_system: float = 0.10,):
+                   heat_loss_collective_heat_system: float,
+                   carnot_efficiency: float,
+                   t_delivery: float,
+                   t_wko: float,):
 
     # Loading profiles
     (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
     heat_profile = (heat_df["MW"] / heat_df["MW"].sum())
 
-    # Collective SCOP assumptions
-    carnot_efficiency = 0.55
-    t_delivery = 50
-    t_wko = 17
 
     scop_collective = calculate_collective_scop(carnot_efficiency=carnot_efficiency,t_delivery=t_delivery,t_wko=t_wko,)
 
