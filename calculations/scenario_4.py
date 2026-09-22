@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from calculations.common import *
 from calculations.load_profiles import load_profiles
+from calculations.scenario_3 import calculate_collective_scop
 
 def calculate_buffer_volume(heatpump_electricity: pd.Series,daily_average_heat_demand: pd.Series,scop_collective: float,houses:int,delta_t_buffer_seasonal:float,):
     buffer_content = (daily_average_heat_demand - heatpump_electricity).cumsum()
@@ -17,17 +18,15 @@ def calculate_buffer_capex(buffer_volume: float,cost_per_m3: float, annuity_fact
 def run_scenario_4(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw_centralized: float,
-                   delta_t_buffer_seasonal: float,buffer_cost_per_m3: float,):
+                   delta_t_buffer_seasonal: float,buffer_cost_per_m3: float,
+                   carnot_efficiency: float,t_delivery: float,t_wko: float,):
 
     # Loading profiles
     (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
     heat_profile = (heat_df["MW"] / heat_df["MW"].sum())
 
-    carnot_efficiency = 0.55
-    t_delivery = 50
-    t_wko = 17
-
-    scop_collective = (carnot_efficiency * ((273 + t_delivery) / (t_delivery - t_wko)))
+    #scop_collective = (carnot_efficiency * ((273 + t_delivery) / (t_delivery - t_wko)))
+    scop_collective = calculate_collective_scop(carnot_efficiency=carnot_efficiency,t_delivery=t_delivery,t_wko=t_wko,)
 
     # Calculations
     household_electricity = calculate_household_electricity(annual_electricity_demand_kwh=annual_electricity_demand_kwh,
