@@ -337,7 +337,7 @@ if mode == "Los scenario":
             grid_expansion_cost_eur_per_kw_centralized=grid_expansion_cost_eur_per_kw_centralized,
             delta_t_buffer_two_week = delta_t_buffer_two_week,
             buffer_cost_per_m3 = buffer_cost_per_m3_5,
-            heat_loss_collective_heat_system=heat_loss_collective_heat_system,
+            heat_loss_collective_heat_system=heat_loss_heat_network / 100,
             carnot_efficiency=carnot_efficiency,
             t_delivery=t_delivery,
             t_wko=t_wko,
