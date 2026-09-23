@@ -478,6 +478,9 @@ if mode == "Vergelijk scenario's":
              "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
              "Warmtesysteem CAPEX (€)": f"€{scenario_results['annual_capex']:,.0f}",
              "Netwerk CAPEX (€)": f"€{scenario_results['annual_grid_capex']:,.0f}",
+             "Buffer CAPEX (€)": (f"€{scenario_results['buffer_capex']:,.0f}"
+                                  if "buffer_capex" in scenario_results
+                                  else "N/A"),
              "Jaarlijkse OPEX (€)": f"€{scenario_results['annual_city_opex']:,.0f}",
              "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
              "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
