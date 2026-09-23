@@ -9,9 +9,9 @@ def calculate_heatpump_electricity(hourly_heat_demand: pd.Series,hourly_cop: pd.
 def calculate_scop(hourly_heat_demand: pd.Series,heatpump_electricity: pd.Series,) -> float:
     return (hourly_heat_demand.sum() / heatpump_electricity.sum())
 
-def calculate_daily_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,) -> pd.Series:
+def calculate_daily_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,hours: float) -> pd.Series:
     excel_serial = ((datetime_series - pd.Timestamp("1899-12-30")).dt.total_seconds() / 86400)
-    daily_groups = np.floor((excel_serial - 1/24)/0.5 + 1e-9)
+    daily_groups = np.floor((excel_serial - 1/24)*(24/hours) + 1e-9)
     daily_groups[daily_groups == daily_groups.min()] += 1
     return (hourly_heat_demand.groupby(daily_groups).transform("mean"))
 
@@ -25,7 +25,7 @@ def calculate_buffer_volume(heatpump_electricity: pd.Series,daily_average_heat_d
 def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_demand_gj: float,
                    analysis_year: str,capex_per_house: float,heatpump_lifetime_years: int,
                    wacc: float,grid_expansion_cost_eur_per_kw: float,delta_t_buffer: float,
-                   carnot_efficiency_individual: float,t_delivery_individual: float,):
+                   carnot_efficiency_individual: float,t_delivery_individual: float,hours: float,):
 
     # Loading profiles
     (electricity_profile,heat_df,co2_profile,price_profile,) = load_profiles(analysis_year)
@@ -42,7 +42,7 @@ def run_scenario_2(houses: int,annual_electricity_demand_kwh: float,annual_heat_
 
     heatpump_electricity = calculate_heatpump_electricity(hourly_heat_demand=hourly_heat,hourly_cop=cop,)
 
-    daily_average_heat = calculate_daily_average_heat_demand(hourly_heat_demand=heatpump_electricity,datetime_series=heat_df["datum"],)
+    daily_average_heat = calculate_daily_average_heat_demand(hourly_heat_demand=heatpump_electricity,datetime_series=heat_df["datum"],hours=hours,)
 
     #buffer_volume = calculate_buffer_volume(heatpump_electricity=heatpump_electricity,
     #                                                       daily_average_heat_demand=daily_average_heat,

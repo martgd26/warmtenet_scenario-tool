@@ -76,6 +76,8 @@ with st.sidebar:
                 delta_t_buffer = st.number_input("Buffer ΔT (°C)", value=20.0,)
                 carnot_efficiency_individual = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="single_s2_carnot",)
                 t_delivery_individual = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="single_s2_t_delivery",)
+                hours = st.number_input("Bufferduur (uren)",value=24.0,min_value=1.0,key="single_s2_hours",)
+
 
         elif scenario == "Collectief warmtesysteem":
             with st.expander("Scenario specifieke instellingen"):
@@ -141,6 +143,7 @@ with st.sidebar:
                 delta_t_buffer = st.number_input("Buffer ΔT (°C)",value=20.0,)
                 carnot_efficiency_individual_compare_s2 = st.number_input("Carnot-rendement (-)",value=0.45,step=0.01,key="compare_s2_carnot",)
                 t_delivery_individual_compare_s2 = st.number_input("Afgiftetemperatuur (°C)",value=50.0,key="compare_s2_t_delivery",)
+                hours_compare_s2 = st.number_input("Bufferduur (uren)",value=24.0,min_value=1.0,key="compare_s2_hours",)
 
         if "Collectief warmtesysteem" in selected_scenarios:
                     with st.sidebar.expander("Instellingen 'Collectief warmtesysteem'"):
@@ -241,7 +244,8 @@ if mode == "Los scenario":
             grid_expansion_cost_eur_per_kw=grid_expansion_cost_eur_per_kw,
             delta_t_buffer = delta_t_buffer,
             carnot_efficiency_individual = carnot_efficiency_individual,
-            t_delivery_individual = t_delivery_individual,            
+            t_delivery_individual = t_delivery_individual,      
+            hours = hours,
             )
             
             
@@ -397,6 +401,7 @@ if mode == "Vergelijk scenario's":
                 delta_t_buffer=delta_t_buffer,
                 carnot_efficiency_individual=carnot_efficiency_individual_compare_s2,
                 t_delivery_individual=t_delivery_individual_compare_s2,
+                hours=hours_compare_s2,
                 )
 
         if "Collectief warmtesysteem" in selected_scenarios:
