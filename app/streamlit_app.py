@@ -457,20 +457,39 @@ if mode == "Vergelijk scenario's":
                 t_wko=t_wko_compare_s5,
                 )
 
+        #comparison_df = pd.DataFrame({scenario_name: {
+        #    "Piekvraag (kW)": f"{scenario_results['peak_city_electricity_demand']:,.0f}",
+        #    "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
+        #    "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
+        #    "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
+        #    "Bufferenergie (kWh)": (f"{scenario_results['buffer_energy']:,.0f}"
+        #                            if "buffer_energy" in scenario_results 
+        #                            else "N/A"),
+        #    "Buffervolume (m³)": (f"{scenario_results['buffer_volume']:,.0f} m³"
+        #                          if scenario_name == "Individuele warmtepomp + dagbuffer"
+        #                          else (f"{scenario_results['buffer_volume']:,.0f} m³ "
+        #                                f"(20 × {(scenario_results['buffer_volume']/20)**0.5:,.0f} × "
+        #                                f"{(scenario_results['buffer_volume']/20)**0.5:,.0f} m)")
+        #                                if "buffer_volume" in scenario_results  else "N/A"),} 
+        #                                for scenario_name, scenario_results in results.items()})
+
         comparison_df = pd.DataFrame({scenario_name: {
-            "Piekvraag (kW)": f"{scenario_results['peak_city_electricity_demand']:,.0f}",
-            "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
-            "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
-            "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
-            "Bufferenergie (kWh)": (f"{scenario_results['buffer_energy']:,.0f}"
-                                    if "buffer_energy" in scenario_results 
-                                    else "N/A"),
+             "Piekvraag (kW)": f"{scenario_results['peak_city_electricity_demand']:,.0f}",
+             "Jaarlijkse CO₂-uitstoot (ton/jaar)": f"{scenario_results['annual_co2'] / 1000:,.0f}",
+             "Warmtesysteem CAPEX (€)": f"€{scenario_results['annual_capex']:,.0f}",
+             "Netwerk CAPEX (€)": f"€{scenario_results['annual_grid_capex']:,.0f}",
+             "Jaarlijkse OPEX (€)": f"€{scenario_results['annual_city_opex']:,.0f}",
+             "Totale jaarlijkse kosten (€)": f"€{scenario_results['annual_total_costs']:,.0f}",
+             "LCoE Warmte (€/kWh)": f"€{scenario_results['lcoe_heat']:.2f}",
+             "Bufferenergie (kWh)": (f"{scenario_results['buffer_energy']:,.0f}"
+                                     if "buffer_energy" in scenario_results
+                                     else "N/A"),
             "Buffervolume (m³)": (f"{scenario_results['buffer_volume']:,.0f} m³"
                                   if scenario_name == "Individuele warmtepomp + dagbuffer"
                                   else (f"{scenario_results['buffer_volume']:,.0f} m³ "
                                         f"(20 × {(scenario_results['buffer_volume']/20)**0.5:,.0f} × "
                                         f"{(scenario_results['buffer_volume']/20)**0.5:,.0f} m)")
-                                        if "buffer_volume" in scenario_results  else "N/A"),} 
+                                        if "buffer_volume" in scenario_results  else "N/A"),}
                                         for scenario_name, scenario_results in results.items()})
 
         st.subheader("Scenario vergelijking")
