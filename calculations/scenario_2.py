@@ -11,7 +11,7 @@ def calculate_scop(hourly_heat_demand: pd.Series,heatpump_electricity: pd.Series
 
 def calculate_daily_average_heat_demand(hourly_heat_demand: pd.Series,datetime_series: pd.Series,) -> pd.Series:
     excel_serial = ((datetime_series - pd.Timestamp("1899-12-30")).dt.total_seconds() / 86400)
-    daily_groups = np.floor(excel_serial - 1/12 + 1e-9)
+    daily_groups = np.floor((excel_serial - 1/24)/2 + 1e-9)
     daily_groups[daily_groups == daily_groups.min()] += 1
     return (hourly_heat_demand.groupby(daily_groups).transform("mean"))
 
